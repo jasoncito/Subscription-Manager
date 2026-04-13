@@ -1,0 +1,23 @@
+<div class="renewals-card">
+  <div class="renewals-card__header">
+    <span class="title-md" style="color: white;">Proximas Renovaciones</span>
+    <span class="material-icons-outlined" style="color: white; font-size: 18px;">schedule</span>
+  </div>
+
+  <div class="renewals-card__list">
+    @for (renewal of upcomingRenewals(); track renewal.id) {
+      <div class="renewal-item">
+        <div class="renewal-item__indicator" [style.background]="renewal.color"></div>
+        <span class="renewal-item__name">{{ renewal.name }}</span>
+        <span class="renewal-item__date" [class.urgent]="renewal.isUrgent">
+          {{ renewal.relativeDate }}
+        </span>
+      </div>
+    }
+  </div>
+
+  <a class="renewals-card__link">
+    Ver Calendario Completo
+    <span class="material-icons-outlined" style="font-size: 16px;">arrow_forward</span>
+  </a>
+</div>

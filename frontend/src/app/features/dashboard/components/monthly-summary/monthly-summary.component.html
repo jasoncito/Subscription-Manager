@@ -1,0 +1,19 @@
+<div class="summary-card">
+  <div class="summary-card__header">
+    <span class="label-md">Gasto Mensual Total</span>
+    <span class="label-md fiscal-label">RESUMEN FISCAL</span>
+  </div>
+  <div class="summary-card__amount">
+    <span class="display-lg">{{ stats().totalMonthly | currency:'USD':'symbol':'1.2-2' }}</span>
+  </div>
+  <div class="summary-card__meta">
+    <div class="meta-item">
+      <span class="label-md">ACTIVAS</span>
+      <span class="title-md">{{ stats().count }} Suscripciones</span>
+    </div>
+    <div class="meta-item">
+      <span class="label-md">PROYECCION ANUAL</span>
+      <span class="title-md">{{ stats().annualProjection | currency:'USD':'symbol':'1.2-2' }}</span>
+    </div>
+  </div>
+</div>

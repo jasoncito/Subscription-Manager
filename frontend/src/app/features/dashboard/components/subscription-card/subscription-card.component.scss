@@ -1,0 +1,107 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.sub-card {
+  @include card-with-strip;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-elevated;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: $spacing-md;
+  }
+
+  &__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: $radius-md;
+    background: $surface-container-low;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .material-icons-outlined {
+      font-size: 20px;
+      color: var(--brand-color, $primary-container);
+    }
+  }
+
+  &__menu { position: relative; }
+
+  &__info { margin-bottom: $spacing-md; }
+
+  &__name {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: $on-surface;
+    margin-bottom: 2px;
+  }
+
+  &__price {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+    margin-bottom: $spacing-sm;
+    .price-suffix { text-transform: none; }
+  }
+
+  &__renewal {
+    .renewal-date {
+      font-size: 0.6875rem;
+      color: $tertiary;
+    }
+  }
+}
+
+.menu-trigger {
+  background: none;
+  border: none;
+  padding: $spacing-xs;
+  border-radius: 50%;
+  cursor: pointer;
+  color: $on-surface-variant;
+  transition: background 0.2s ease;
+  &:hover { background: $surface-container-low; }
+  .material-icons-outlined { font-size: 18px; }
+}
+
+.menu-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: $surface-container-lowest;
+  border-radius: $radius-md;
+  box-shadow: $shadow-elevated;
+  padding: $spacing-xs;
+  min-width: 140px;
+  z-index: 5;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  width: 100%;
+  padding: $spacing-sm $spacing-md;
+  border: none;
+  background: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8125rem;
+  color: $on-surface;
+  cursor: pointer;
+  border-radius: $radius-sm;
+  transition: background 0.15s ease;
+  .material-icons-outlined { font-size: 16px; }
+  &:hover { background: $surface-container-low; }
+  &--danger {
+    color: $error;
+    &:hover { background: $error-container; }
+  }
+}

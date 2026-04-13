@@ -1,0 +1,33 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.summary-card {
+  @include card;
+  padding: $spacing-xl $spacing-2xl;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-sm;
+    .fiscal-label { color: $outline; font-size: 0.625rem; }
+  }
+
+  &__amount {
+    margin-bottom: $spacing-xl;
+    .display-lg {
+      @include mobile { font-size: 2.5rem; }
+    }
+  }
+
+  &__meta {
+    display: flex;
+    gap: $spacing-2xl;
+    @include mobile { flex-direction: column; gap: $spacing-md; }
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-xs;
+    }
+  }
+}

@@ -1,0 +1,40 @@
+<div class="sub-card" [style.--brand-color]="subscription().color">
+  <div class="sub-card__header">
+    <div class="sub-card__icon">
+      <span class="material-icons-outlined">{{ subscription().icon || 'subscriptions' }}</span>
+    </div>
+    <div class="sub-card__menu">
+      <button class="menu-trigger" (click)="toggleMenu()">
+        <span class="material-icons-outlined">more_vert</span>
+      </button>
+      @if (menuOpen) {
+        <div class="menu-dropdown">
+          <button class="menu-item" (click)="edit()">
+            <span class="material-icons-outlined">edit</span>
+            Editar
+          </button>
+          <button class="menu-item menu-item--danger" (click)="delete()">
+            <span class="material-icons-outlined">delete</span>
+            Eliminar
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="sub-card__info">
+    <h3 class="sub-card__name">{{ subscription().name }}</h3>
+    <p class="body-md sub-card__plan">{{ subscription().category | titlecase }}</p>
+  </div>
+
+  <div class="sub-card__price">
+    <span class="title-md">{{ subscription().price | currency:'USD':'symbol':'1.2-2' }}</span>
+    <span class="label-md price-suffix">/{{ subscription().billingCycle === 'monthly' ? 'mes' : 'año' }}</span>
+  </div>
+
+  <div class="sub-card__renewal">
+    <span class="label-md renewal-date">
+      RENUEVA {{ subscription().nextPaymentDate | date:'MMM d' | uppercase }}
+    </span>
+  </div>
+</div>
