@@ -1,0 +1,30 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.app-layout {
+  min-height: 100vh;
+  background: $surface;
+
+  &.desktop {
+    display: flex;
+    .main-content {
+      margin-left: $sidebar-width;
+      flex: 1;
+    }
+  }
+}
+
+.main-content {
+  padding: $spacing-xl;
+  max-width: 1200px;
+  width: 100%;
+
+  @include mobile {
+    padding: $spacing-md;
+    padding-bottom: calc($bottom-nav-height + $spacing-xl);
+  }
+
+  @include desktop {
+    padding: $spacing-2xl $spacing-3xl;
+  }
+}

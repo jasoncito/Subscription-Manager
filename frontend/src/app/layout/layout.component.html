@@ -1,0 +1,11 @@
+<div class="app-layout" [class.desktop]="isDesktop()">
+  @if (isDesktop()) {
+    <app-sidebar />
+  }
+  <main class="main-content">
+    <router-outlet />
+  </main>
+  @if (!isDesktop()) {
+    <app-bottom-nav />
+  }
+</div>

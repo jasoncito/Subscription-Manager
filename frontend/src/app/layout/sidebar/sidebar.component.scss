@@ -1,0 +1,112 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: $sidebar-width;
+  height: 100vh;
+  background: $surface-container-lowest;
+  padding: $spacing-lg;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    margin-bottom: $spacing-2xl;
+    padding: $spacing-sm 0;
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, $primary, $primary-container);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $on-primary;
+      .material-icons-outlined { font-size: 20px; }
+    }
+
+    .logo-title {
+      font-family: 'Manrope', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: $on-surface;
+      display: block;
+    }
+
+    .logo-subtitle {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.625rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: $outline;
+      display: block;
+    }
+  }
+
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+    flex: 1;
+  }
+
+  &__actions {
+    margin-bottom: $spacing-xl;
+    .quick-add-btn {
+      @include btn-primary;
+      width: 100%;
+      text-decoration: none;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+
+    .footer-link {
+      display: flex;
+      align-items: center;
+      gap: $spacing-sm;
+      padding: $spacing-sm $spacing-md;
+      font-size: 0.875rem;
+      color: $on-surface-variant;
+      text-decoration: none;
+      cursor: pointer;
+      border-radius: $radius-md;
+      .material-icons-outlined { font-size: 18px; }
+      &:hover { background: $surface-container-low; text-decoration: none; }
+    }
+  }
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $radius-md;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: $on-surface-variant;
+  text-decoration: none;
+  transition: background 0.2s ease;
+  .material-icons-outlined { font-size: 20px; }
+  &:hover { background: $surface-container-low; text-decoration: none; }
+  &.active {
+    background: $primary-fixed;
+    color: $primary;
+    font-weight: 600;
+    .material-icons-outlined { color: $primary; }
+  }
+  &.disabled { opacity: 0.4; pointer-events: none; }
+}

@@ -1,0 +1,59 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.bottom-nav {
+  @include glass;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: $bottom-nav-height;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 10;
+  padding: 0 $spacing-sm;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: $spacing-xs;
+    color: $on-surface-variant;
+    text-decoration: none;
+    font-size: 0.625rem;
+    transition: color 0.2s ease;
+    .material-icons-outlined { font-size: 22px; }
+    &.active { color: $primary-container; }
+    &.disabled { opacity: 0.4; pointer-events: none; }
+  }
+
+  &__label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+  }
+
+  &__fab-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -24px;
+  }
+
+  &__fab {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, $primary, $primary-container);
+    color: $on-primary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: $shadow-elevated;
+    transition: transform 0.2s ease;
+    &:hover { transform: scale(1.05); }
+    .material-icons-outlined { font-size: 24px; }
+  }
+}
