@@ -1,0 +1,52 @@
+<div class="dashboard">
+  <!-- Seccion de resumen -->
+  <section class="dashboard__summary">
+    <app-monthly-summary [stats]="stats()" />
+    <app-upcoming-renewals [subscriptions]="subscriptions()" />
+  </section>
+
+  <!-- Portafolio de suscripciones -->
+  <section class="dashboard__portfolio">
+    <div class="portfolio-header">
+      <div>
+        <h2 class="headline-sm">Tu Portafolio Digital</h2>
+        <p class="body-md">Suscripciones activas gestionadas</p>
+      </div>
+      <div class="portfolio-filters">
+        <button class="filter-chip active">Categoria</button>
+        <button class="filter-chip">Precio</button>
+      </div>
+    </div>
+
+    @if (isLoading()) {
+      <div class="loading-state">
+        <span class="material-icons-outlined loading-spinner">sync</span>
+        <p class="body-md">Cargando suscripciones...</p>
+      </div>
+    } @else {
+      <div class="subscription-grid">
+        @for (sub of activeSubscriptions(); track sub.id) {
+          <app-subscription-card
+            [subscription]="sub"
+            (onEdit)="handleEdit($event)"
+            (onDelete)="handleDelete($event)"
+          />
+        } @empty {
+          <div class="empty-state">
+            <span class="material-icons-outlined" style="font-size: 48px; color: #737785;">inbox</span>
+            <p class="body-lg">No hay suscripciones activas</p>
+            <p class="body-md">Agrega tu primera suscripcion para comenzar</p>
+          </div>
+        }
+      </div>
+
+      <div class="add-section">
+        <div class="add-card">
+          <span class="material-icons-outlined">add</span>
+          <p class="body-md">Agregar Suscripcion</p>
+          <p class="label-md" style="text-transform: none;">Gestiona un nuevo servicio digitalmente</p>
+        </div>
+      </div>
+    }
+  </section>
+</div>
