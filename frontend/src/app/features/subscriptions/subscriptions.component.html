@@ -79,6 +79,7 @@
           [listMode]="true"
           (onEdit)="navigateToEdit($event)"
           (onDelete)="handleDelete($event)"
+          (onDetail)="navigateToDetail($event)"
         />
       } @empty {
         <div class="empty-state">
