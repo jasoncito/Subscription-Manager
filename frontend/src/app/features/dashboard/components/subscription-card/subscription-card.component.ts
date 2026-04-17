@@ -11,6 +11,7 @@ import { Subscription } from '../../../../core/models/subscription.model';
 })
 export class SubscriptionCardComponent {
   subscription = input.required<Subscription>();
+  listMode = input<boolean>(false);
   onEdit = output<Subscription>();
   onDelete = output<Subscription>();
 

@@ -1,15 +1,16 @@
 import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { CurrencyPipe, DatePipe, TitleCasePipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { SubscriptionService } from '../../core/services/subscription.service';
 import { Subscription, SubscriptionStats, CATEGORIES } from '../../core/models/subscription.model';
 import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
+import { SubscriptionCardComponent } from '../../features/dashboard/components/subscription-card/subscription-card.component';
 
 @Component({
   selector: 'app-subscriptions',
   standalone: true,
-  imports: [FormsModule, CurrencyPipe, DatePipe, TitleCasePipe, ConfirmDialogComponent],
+  imports: [FormsModule, CurrencyPipe, DatePipe, ConfirmDialogComponent, SubscriptionCardComponent],
   templateUrl: './subscriptions.component.html',
   styleUrl: './subscriptions.component.scss'
 })

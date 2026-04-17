@@ -74,33 +74,12 @@
       </div>
     } @else {
       @for (sub of filteredSubscriptions(); track sub.id) {
-        <div class="subscription-row" [style.--brand-color]="sub.color">
-          <div class="sub-icon" [style.background]="sub.color">
-            <span class="material-icons-outlined">{{ sub.icon }}</span>
-          </div>
-          <div class="sub-info">
-            <span class="title-md">{{ sub.name }}</span>
-            <span class="label-md sub-category">{{ sub.category | titlecase }}</span>
-          </div>
-          <div class="sub-billing">
-            <span class="body-md sub-cycle">{{ sub.billingCycle === 'monthly' ? 'Mensual' : 'Anual' }}</span>
-          </div>
-          <div class="sub-price">
-            <span class="title-md">{{ sub.price | currency:'USD':'symbol':'1.2-2' }}</span>
-          </div>
-          <div class="sub-date">
-            <span class="label-md">PRÓXIMO COBRO</span>
-            <span class="body-md">{{ sub.nextPaymentDate | date:'MMM d, y' }}</span>
-          </div>
-          <div class="sub-actions">
-            <button class="action-btn" (click)="navigateToEdit(sub)" title="Editar">
-              <span class="material-icons-outlined">edit</span>
-            </button>
-            <button class="action-btn action-btn--danger" (click)="handleDelete(sub)" title="Eliminar">
-              <span class="material-icons-outlined">delete_outline</span>
-            </button>
-          </div>
-        </div>
+        <app-subscription-card
+          [subscription]="sub"
+          [listMode]="true"
+          (onEdit)="navigateToEdit($event)"
+          (onDelete)="handleDelete($event)"
+        />
       } @empty {
         <div class="empty-state">
           <span class="material-icons-outlined">inbox</span>
