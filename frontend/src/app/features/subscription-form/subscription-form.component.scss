@@ -1,0 +1,133 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.form-page {
+  max-width: 640px;
+}
+
+.page-header {
+  margin-bottom: $spacing-xl;
+}
+
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-3xl;
+  gap: $spacing-md;
+
+  .loading-spinner {
+    font-size: 32px;
+    color: $primary-container;
+    animation: spin 1.5s linear infinite;
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.form-card {
+  @include card;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+}
+
+// Campos
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+}
+
+.field-input {
+  @include input-field;
+}
+
+.field-select {
+  appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23737785' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+
+.field-error {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8125rem;
+  color: $error;
+}
+
+// Toggle ciclo de facturación
+.toggle-group {
+  display: flex;
+  border-radius: $radius-full;
+  background: $surface-container;
+  padding: 4px;
+  width: fit-content;
+  gap: 4px;
+}
+
+.toggle-btn {
+  padding: 0.5rem 1.25rem;
+  border: none;
+  border-radius: $radius-full;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: $on-surface-variant;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+
+  &.active {
+    background: $on-surface;
+    color: $surface-container-lowest;
+  }
+}
+
+// Color picker
+.color-picker-row {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+.color-input {
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: $radius-md;
+  padding: 4px;
+  background: $surface-container-high;
+  cursor: pointer;
+}
+
+.color-value {
+  color: $on-surface-variant;
+  font-family: 'Inter', monospace;
+}
+
+// Acciones
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $spacing-md;
+  padding-top: $spacing-sm;
+
+  @include mobile {
+    flex-direction: column-reverse;
+  }
+}
+
+.btn-cancel {
+  @include btn-secondary;
+}
+
+.btn-submit {
+  @include btn-primary;
+}

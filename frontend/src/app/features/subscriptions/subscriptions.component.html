@@ -73,15 +73,50 @@
         <p class="body-md">Cargando...</p>
       </div>
     } @else {
-      <div class="list-placeholder">
-        <span class="material-icons-outlined placeholder-icon">format_list_bulleted</span>
-        <p class="body-lg">La lista de suscripciones va aqui</p>
-        <p class="body-md">
-          Implementa la lista usando <code>filteredSubscriptions()</code> como fuente de datos.
-          Consulta los screenshots en <code>/screenshots/</code> para referencia.
-        </p>
-      </div>
+      @for (sub of filteredSubscriptions(); track sub.id) {
+        <div class="subscription-row" [style.--brand-color]="sub.color">
+          <div class="sub-icon" [style.background]="sub.color">
+            <span class="material-icons-outlined">{{ sub.icon }}</span>
+          </div>
+          <div class="sub-info">
+            <span class="title-md">{{ sub.name }}</span>
+            <span class="label-md sub-category">{{ sub.category | titlecase }}</span>
+          </div>
+          <div class="sub-billing">
+            <span class="body-md sub-cycle">{{ sub.billingCycle === 'monthly' ? 'Mensual' : 'Anual' }}</span>
+          </div>
+          <div class="sub-price">
+            <span class="title-md">{{ sub.price | currency:'USD':'symbol':'1.2-2' }}</span>
+          </div>
+          <div class="sub-date">
+            <span class="label-md">PRÓXIMO COBRO</span>
+            <span class="body-md">{{ sub.nextPaymentDate | date:'MMM d, y' }}</span>
+          </div>
+          <div class="sub-actions">
+            <button class="action-btn" (click)="navigateToEdit(sub)" title="Editar">
+              <span class="material-icons-outlined">edit</span>
+            </button>
+            <button class="action-btn action-btn--danger" (click)="handleDelete(sub)" title="Eliminar">
+              <span class="material-icons-outlined">delete_outline</span>
+            </button>
+          </div>
+        </div>
+      } @empty {
+        <div class="empty-state">
+          <span class="material-icons-outlined">inbox</span>
+          <p class="body-lg">No hay suscripciones</p>
+          <p class="body-md">Prueba con otra búsqueda o agrega una nueva</p>
+        </div>
+      }
     }
   </section>
+
+  @if (showConfirmDialog()) {
+    <app-confirm-dialog
+      [message]="'¿Eliminar ' + subscriptionToDelete()?.name + '?'"
+      (confirmed)="confirmDelete()"
+      (cancelled)="cancelDelete()"
+    />
+  }
 
 </div>

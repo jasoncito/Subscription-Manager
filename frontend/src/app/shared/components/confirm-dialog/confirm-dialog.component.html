@@ -1,0 +1,11 @@
+<div class="dialog-overlay" (click)="onCancel()">
+  <div class="dialog-card" (click)="$event.stopPropagation()">
+    <span class="material-icons-outlined dialog-icon">warning_amber</span>
+    <h2 class="title-md">{{ message() }}</h2>
+    <p class="body-md">Esta acción no se puede deshacer.</p>
+    <div class="dialog-actions">
+      <button class="btn-cancel" (click)="onCancel()">Cancelar</button>
+      <button class="btn-confirm" (click)="onConfirm()">Eliminar</button>
+    </div>
+  </div>
+</div>
