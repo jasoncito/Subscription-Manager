@@ -1,14 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-confirm-dialog',
   standalone: true,
   imports: [],
-  template: `
-    <div style="padding: 2rem; text-align: center;">
-      <p style="color: #737785;">Dialogo de confirmacion pendiente de implementacion.</p>
-    </div>
-  `,
-  styles: ``
+  templateUrl: './confirm-dialog.component.html',
+  styleUrl: './confirm-dialog.component.scss'
 })
-export class ConfirmDialogComponent {}
+export class ConfirmDialogComponent {
+  message = input<string>('¿Estás seguro?');
+  confirmed = output<void>();
+  cancelled = output<void>();
+
+  onConfirm(): void {
+    this.confirmed.emit();
+  }
+
+  onCancel(): void {
+    this.cancelled.emit();
+  }
+}

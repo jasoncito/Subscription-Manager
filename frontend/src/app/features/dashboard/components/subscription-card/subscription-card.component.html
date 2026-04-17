@@ -1,9 +1,12 @@
-<div class="sub-card" [style.--brand-color]="subscription().color">
+<div class="sub-card"
+     [class.sub-card--list]="listMode()"
+     [style.--brand-color]="subscription().color"
+     (click)="detail()">
   <div class="sub-card__header">
     <div class="sub-card__icon">
       <span class="material-icons-outlined">{{ subscription().icon || 'subscriptions' }}</span>
     </div>
-    <div class="sub-card__menu">
+    <div class="sub-card__menu" (click)="$event.stopPropagation()">
       <button class="menu-trigger" (click)="toggleMenu()">
         <span class="material-icons-outlined">more_vert</span>
       </button>

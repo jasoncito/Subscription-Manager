@@ -60,6 +60,22 @@
   }
 }
 
+.sub-card--list {
+  &:hover { transform: none; }
+
+  @include desktop {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    padding: $spacing-md $spacing-lg;
+
+    .sub-card__header { display: contents; }
+    .sub-card__info   { flex: 1; min-width: 0; margin-bottom: 0; }
+    .sub-card__price  { flex-shrink: 0; margin-bottom: 0; }
+    .sub-card__menu   { order: 10; }
+  }
+}
+
 .menu-trigger {
   background: none;
   border: none;

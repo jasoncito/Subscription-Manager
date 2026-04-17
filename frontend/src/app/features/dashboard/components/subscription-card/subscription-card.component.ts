@@ -11,8 +11,10 @@ import { Subscription } from '../../../../core/models/subscription.model';
 })
 export class SubscriptionCardComponent {
   subscription = input.required<Subscription>();
+  listMode = input<boolean>(false);
   onEdit = output<Subscription>();
   onDelete = output<Subscription>();
+  onDetail = output<Subscription>();
 
   menuOpen = false;
 
@@ -28,5 +30,9 @@ export class SubscriptionCardComponent {
   delete(): void {
     this.menuOpen = false;
     this.onDelete.emit(this.subscription());
+  }
+
+  detail(): void {
+    this.onDetail.emit(this.subscription());
   }
 }

@@ -4,11 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { SubscriptionService } from '../../core/services/subscription.service';
 import { Subscription, SubscriptionStats, CATEGORIES } from '../../core/models/subscription.model';
+import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
+import { SubscriptionCardComponent } from '../../features/dashboard/components/subscription-card/subscription-card.component';
 
 @Component({
   selector: 'app-subscriptions',
   standalone: true,
-  imports: [FormsModule, CurrencyPipe, DatePipe],
+  imports: [FormsModule, CurrencyPipe, DatePipe, ConfirmDialogComponent, SubscriptionCardComponent],
   templateUrl: './subscriptions.component.html',
   styleUrl: './subscriptions.component.scss'
 })
@@ -21,6 +23,8 @@ export class SubscriptionsComponent implements OnInit {
   isLoading = signal(true);
   searchQuery = signal('');
   activeFilter = signal<string>('all');
+  showConfirmDialog = signal(false);
+  subscriptionToDelete = signal<Subscription | null>(null);
 
   categories = CATEGORIES;
 
@@ -32,7 +36,13 @@ export class SubscriptionsComponent implements OnInit {
   });
 
   filteredSubscriptions = computed(() => {
-    return this.subscriptions();
+    const query = this.searchQuery().toLowerCase();
+    const filter = this.activeFilter();
+    return this.subscriptions().filter(s => {
+      const matchesSearch = s.name.toLowerCase().includes(query);
+      const matchesFilter = filter === 'all' || s.category === filter;
+      return matchesSearch && matchesFilter;
+    });
   });
 
   ngOnInit(): void {
@@ -61,5 +71,36 @@ export class SubscriptionsComponent implements OnInit {
 
   navigateToAdd(): void {
     this.router.navigate(['/subscriptions/new']);
+  }
+
+  navigateToEdit(sub: Subscription): void {
+    this.router.navigate(['/subscriptions', sub.id, 'edit']);
+  }
+
+  navigateToDetail(sub: Subscription): void {
+    this.router.navigate(['/subscriptions', sub.id]);
+  }
+
+  handleDelete(sub: Subscription): void {
+    this.subscriptionToDelete.set(sub);
+    this.showConfirmDialog.set(true);
+  }
+
+  confirmDelete(): void {
+    const sub = this.subscriptionToDelete();
+    if (!sub) return;
+    this.subscriptionService.delete(sub.id).subscribe({
+      next: () => {
+        this.showConfirmDialog.set(false);
+        this.subscriptionToDelete.set(null);
+        this.loadData();
+      },
+      error: (err) => console.error('Error eliminando suscripcion:', err),
+    });
+  }
+
+  cancelDelete(): void {
+    this.showConfirmDialog.set(false);
+    this.subscriptionToDelete.set(null);
   }
 }

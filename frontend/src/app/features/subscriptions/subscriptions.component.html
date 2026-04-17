@@ -73,15 +73,30 @@
         <p class="body-md">Cargando...</p>
       </div>
     } @else {
-      <div class="list-placeholder">
-        <span class="material-icons-outlined placeholder-icon">format_list_bulleted</span>
-        <p class="body-lg">La lista de suscripciones va aqui</p>
-        <p class="body-md">
-          Implementa la lista usando <code>filteredSubscriptions()</code> como fuente de datos.
-          Consulta los screenshots en <code>/screenshots/</code> para referencia.
-        </p>
-      </div>
+      @for (sub of filteredSubscriptions(); track sub.id) {
+        <app-subscription-card
+          [subscription]="sub"
+          [listMode]="true"
+          (onEdit)="navigateToEdit($event)"
+          (onDelete)="handleDelete($event)"
+          (onDetail)="navigateToDetail($event)"
+        />
+      } @empty {
+        <div class="empty-state">
+          <span class="material-icons-outlined">inbox</span>
+          <p class="body-lg">No hay suscripciones</p>
+          <p class="body-md">Prueba con otra búsqueda o agrega una nueva</p>
+        </div>
+      }
     }
   </section>
+
+  @if (showConfirmDialog()) {
+    <app-confirm-dialog
+      [message]="'¿Eliminar ' + subscriptionToDelete()?.name + '?'"
+      (confirmed)="confirmDelete()"
+      (cancelled)="cancelDelete()"
+    />
+  }
 
 </div>

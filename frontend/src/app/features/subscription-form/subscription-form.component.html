@@ -1,0 +1,137 @@
+<div class="form-page">
+  <header class="page-header">
+    <div>
+      <h1 class="headline-md">
+        @if (isEditMode()) { Editar Suscripción } @else { Nueva Suscripción }
+      </h1>
+      <p class="body-md">Completa los datos del servicio</p>
+    </div>
+  </header>
+
+  @if (isLoading()) {
+    <div class="loading-state">
+      <span class="material-icons-outlined loading-spinner">sync</span>
+      <p class="body-md">Cargando...</p>
+    </div>
+  } @else {
+    <form class="form-card" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <!-- Nombre -->
+      <div class="field-group">
+        <label class="label-lg" for="name">Nombre del servicio</label>
+        <input
+          id="name"
+          type="text"
+          class="field-input"
+          formControlName="name"
+          placeholder="Ej. Netflix, Spotify..."
+        />
+        @if (form.get('name')?.invalid && form.get('name')?.touched) {
+          <span class="field-error">
+            @if (form.get('name')?.errors?.['required']) { El nombre es obligatorio. }
+            @else if (form.get('name')?.errors?.['minlength']) { Mínimo 2 caracteres. }
+          </span>
+        }
+      </div>
+
+      <!-- Precio -->
+      <div class="field-group">
+        <label class="label-lg" for="price">Precio</label>
+        <input
+          id="price"
+          type="number"
+          class="field-input"
+          formControlName="price"
+          placeholder="0.00"
+          min="0.01"
+          step="0.01"
+        />
+        @if (form.get('price')?.invalid && form.get('price')?.touched) {
+          <span class="field-error">
+            @if (form.get('price')?.errors?.['required']) { El precio es obligatorio. }
+            @else if (form.get('price')?.errors?.['min']) { Debe ser mayor que 0. }
+          </span>
+        }
+      </div>
+
+      <!-- Ciclo de facturación -->
+      <div class="field-group">
+        <span class="label-lg">Ciclo de facturación</span>
+        <div class="toggle-group">
+          <button
+            type="button"
+            class="toggle-btn"
+            [class.active]="form.get('billingCycle')?.value === 'monthly'"
+            (click)="setBillingCycle('monthly')"
+          >
+            Mensual
+          </button>
+          <button
+            type="button"
+            class="toggle-btn"
+            [class.active]="form.get('billingCycle')?.value === 'annual'"
+            (click)="setBillingCycle('annual')"
+          >
+            Anual
+          </button>
+        </div>
+      </div>
+
+      <!-- Categoría -->
+      <div class="field-group">
+        <span class="label-lg">Categoría</span>
+        <div class="category-grid">
+          @for (cat of categories; track cat.value) {
+            <button
+              type="button"
+              class="category-option"
+              [class.active]="form.get('category')?.value === cat.value"
+              (click)="selectCategory(cat)"
+            >
+              <span class="material-icons-outlined">{{ cat.icon }}</span>
+              <span class="category-label">{{ cat.label }}</span>
+            </button>
+          }
+        </div>
+      </div>
+
+      <!-- Próxima fecha de pago -->
+      <div class="field-group">
+        <label class="label-lg" for="nextPaymentDate">Próxima fecha de pago</label>
+        <input
+          id="nextPaymentDate"
+          type="date"
+          class="field-input"
+          formControlName="nextPaymentDate"
+        />
+        @if (form.get('nextPaymentDate')?.invalid && form.get('nextPaymentDate')?.touched) {
+          <span class="field-error">La fecha es obligatoria.</span>
+        }
+      </div>
+
+      <!-- Color de marca -->
+      <div class="field-group field-group--color">
+        <label class="label-lg" for="color">Color de marca</label>
+        <div class="color-picker-row">
+          <input
+            id="color"
+            type="color"
+            class="color-input"
+            formControlName="color"
+          />
+          <span class="body-md color-value">{{ form.get('color')?.value }}</span>
+        </div>
+      </div>
+
+      <!-- Acciones -->
+      <div class="form-actions">
+        <button type="button" class="btn-cancel" (click)="onCancel()">Cancelar</button>
+        <button type="submit" class="btn-submit" [disabled]="form.invalid">
+          <span class="material-icons-outlined">save</span>
+          @if (isEditMode()) { Guardar cambios } @else { Crear suscripción }
+        </button>
+      </div>
+
+    </form>
+  }
+</div>

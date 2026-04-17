@@ -122,9 +122,28 @@
   }
 }
 
-// Lista — placeholder para el candidato
+// Lista
 .subscription-list {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
   min-height: 300px;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-3xl;
+  gap: $spacing-sm;
+  text-align: center;
+  color: $on-surface-variant;
+
+  .material-icons-outlined {
+    font-size: 48px;
+    color: $outline;
+  }
 }
 
 .loading-state {
@@ -145,30 +164,4 @@
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
-}
-
-.list-placeholder {
-  @include card;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: $spacing-3xl;
-  gap: $spacing-sm;
-  text-align: center;
-  border: 2px dashed $outline-variant;
-  background: transparent;
-  box-shadow: none;
-
-  .placeholder-icon {
-    font-size: 48px;
-    color: $outline;
-  }
-
-  code {
-    background: $surface-container;
-    padding: 2px 6px;
-    border-radius: $radius-sm;
-    font-size: 0.8125rem;
-  }
 }
