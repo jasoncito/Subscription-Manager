@@ -79,15 +79,20 @@
 
       <!-- Categoría -->
       <div class="field-group">
-        <label class="label-lg" for="category">Categoría</label>
-        <select id="category" class="field-input field-select" formControlName="category">
+        <span class="label-lg">Categoría</span>
+        <div class="category-grid">
           @for (cat of categories; track cat.value) {
-            <option [value]="cat.value">{{ cat.label }}</option>
+            <button
+              type="button"
+              class="category-option"
+              [class.active]="form.get('category')?.value === cat.value"
+              (click)="selectCategory(cat)"
+            >
+              <span class="material-icons-outlined">{{ cat.icon }}</span>
+              <span class="category-label">{{ cat.label }}</span>
+            </button>
           }
-        </select>
-        @if (form.get('category')?.invalid && form.get('category')?.touched) {
-          <span class="field-error">Selecciona una categoría.</span>
-        }
+        </div>
       </div>
 
       <!-- Próxima fecha de pago -->

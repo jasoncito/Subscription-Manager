@@ -59,6 +59,10 @@ export class SubscriptionFormComponent implements OnInit {
     this.form.patchValue({ billingCycle: cycle });
   }
 
+  selectCategory(cat: typeof CATEGORIES[number]): void {
+    this.form.patchValue({ category: cat.value, icon: cat.icon });
+  }
+
   onSubmit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
